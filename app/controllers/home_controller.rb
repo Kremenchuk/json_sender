@@ -13,7 +13,11 @@ class HomeController < ApplicationController
     data = params.as_json
     case data['method']
       when 'getAreas'
-        RestClient.get(URL)
+        begin
+          @data = RestClient.get "#{URL}/areas", {:content_type => :json, :accept => :json, :params => {:id => 50, 'foo' => 'bar'}}
+        rescue => error
+          @a = error
+        end
       when 'getCities'
         @data = API::API.cities(data)
       when 'getWarehouses'
@@ -37,8 +41,9 @@ class HomeController < ApplicationController
       else
         @error = 'Undefined method'
     end
-
-    redirect_to root_path
+    respond_to do |format|
+      format.json { render json: @data }
+    end
   end
 
 end
