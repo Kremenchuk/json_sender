@@ -4,8 +4,9 @@
 
 $(document).ready ->
   $('#areas').click ->
-#    data = {method: 'getAreas'}
-    data = {method: 'getAreass', options: {Ref: "71508137-9b87-11de-822f-000c2965ae0e"}}
+#  GET
+#    data = {url: '/api/areas'}
+    data = {url: '/api/areas/71508137-9b87-11de-822f-000c2965ae0e'}
     $.ajax
       url: '/api'
       type: 'GET'
@@ -17,13 +18,14 @@ $(document).ready ->
 
 $(document).ready ->
   $('#cities').click ->
-#    data = {method: 'getCities'}
-#    data = {method: 'getCities', options: {asdasd: 'asd'}}   #No valid
-#    data = {method: 'getCities', options: {CityNameLike: "Харк"}}
-#    data = {method: 'getCities', options: {Area: "7150812a-9b87-11de-822f-000c2965ae0e"}}
-    data = {method: 'getCities', options: {Ref: 'db5c88e0-391c-11dd-90d9-001a92567626'}}
+#   GET
+#    data = {url: '/api/cities'}
+#    data = {url: '/api/cities', options: {CityNameLike: "Харк"}}
+    data = {url: '/api/cities', options: {Area: "7150812a-9b87-11de-822f-000c2965ae0e"}}
+#    data = {url: '/api/cities/db5c88e0-391c-11dd-90d9-001a92567626'}
+
     $.ajax
-      url: '/api/'
+      url: '/api'
       dataType: 'json'
       contentType: 'application/json'
       data: data
