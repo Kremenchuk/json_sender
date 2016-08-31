@@ -12,9 +12,9 @@ class HomeController < ApplicationController
     params.permit(:method, options: {})
     data = params.as_json
     case data['method']
-      when 'getAreas'
+      when 'getAreass'
         begin
-          @data = RestClient.get "#{URL}/areas", {:content_type => :json, :accept => :json, :params => {:id => 50, 'foo' => 'bar'}}
+          @data = JSON.parse(RestClient.get "#{URL}/areas", {:content_type => :json, :accept => :json, :params => data})
         rescue => error
           @a = error
         end

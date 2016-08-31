@@ -5,7 +5,7 @@
 $(document).ready ->
   $('#areas').click ->
 #    data = {method: 'getAreas'}
-    data = {method: 'getAreas', options: {Ref: "71508137-9b87-11de-822f-000c2965ae0e"}}
+    data = {method: 'getAreass', options: {Ref: "71508137-9b87-11de-822f-000c2965ae0e"}}
     $.ajax
       url: '/api'
       type: 'GET'
