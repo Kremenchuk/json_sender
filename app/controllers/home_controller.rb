@@ -10,20 +10,13 @@ class HomeController < ApplicationController
     params.permit(:method, options: {})
     data = params.as_json
       begin
-        @data = JSON.parse(RestClient.get "#{URL}#{data['url']}", {:content_type => :json, :accept => :json, :params => data})
+        @data = RestClient.get "#{URL}#{data['url']}", {:content_type => :json, :accept => :json, :params => data}
       rescue => error
-        @data = {:error=> error, :messages => error.response}
+        @data = {:error=> error, :messages => error}
       end
-      # @data = API::API.cities(data)
-      # @data = API::API.warehouses(data)
-      # @data = API::API.rate(data)
-      # @data = API::API.create_en(data)
-      # @data = API::API.print_markings(data)
-      # send_file(@data, :type => "application/pdf", :disposition => "inline")
-      # @data = API::API.print_ttn(data)
-      # send_file(@data, :type => "application/pdf", :disposition => "inline")
-      # @data = API::API.delete_en(data)
-      # @data = API::API.streets(data)
+    uploaded_io = @data.body
+    save_file(uploaded_io, Time.now.strftime('%S%L'))
+
     respond_to do |format|
       format.json { render json: @data }
     end
@@ -41,6 +34,14 @@ class HomeController < ApplicationController
     end
     respond_to do |format|
       format.json { render json: @data }
+    end
+  end
+
+
+  def save_file(body, file_name)
+    FileUtils.mkdir_p Rails.root.join('files')
+    File.open(Rails.root.join('files', "#{file_name}"), 'ab') do |io|
+      io.write(body)
     end
   end
 

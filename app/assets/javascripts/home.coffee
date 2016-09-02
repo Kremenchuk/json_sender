@@ -133,6 +133,27 @@ $(document).ready ->
 
   $('#create').click ->
 #    POST
+
+#    data = {url: '/api/ebill', options: {
+#      DateTime:              '02.09.2016',
+#      ServiceType:           'WarehouseWarehouse',
+#      RecipientFirstName:            'Іван',
+#      RecipientMiddleName:           'Іванович',
+#      RecipientLastName:             'Іванов',
+#      RecipientPhone:                '0661234567',
+#      RecipientCounterpartyType:     'PrivatePerson',
+#      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
+#      RecipientAddress:              '0d545f61-e1c2-11e3-8c4a-0050568002cf',
+#      PaymentMethod:                 'Cash',
+#      PayerType:                     'Sender',                                #PayerType: 'Recipient'
+#      Cost:                  '400',
+#      SeatsAmount:           '2',
+#      Description:           'Опис товару',
+#      CargoType:             'Cargo',
+#      Weight:                '0.001',
+#      VolumeGeneral:         '0.001',
+#    }}
+
 #    data = {url: '/api/ebill', options: {
 #      Poshtomat:             'Privat',
 #      DateTime:              '02.09.2016',
@@ -162,49 +183,29 @@ $(document).ready ->
 
     data = {url: '/api/ebill', options: {
       DateTime:              '02.09.2016',
-      ServiceType:           'WarehouseWarehouse',
-      RecipientFirstName:            'Іван',
+      ServiceType:           'WarehouseDoors',
+      RecipientFirstName:            'Петро',
       RecipientMiddleName:           'Іванович',
       RecipientLastName:             'Іванов',
       RecipientPhone:                '0661234567',
+      RecipientAddress:              '-',
       RecipientCounterpartyType:     'PrivatePerson',
       CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
-      RecipientAddress:              '0d545f61-e1c2-11e3-8c4a-0050568002cf',
       PaymentMethod:                 'Cash',
       PayerType:                     'Sender',                                #PayerType: 'Recipient'
-      Cost:                  '400',
+      Cost:                  '200',
       SeatsAmount:           '2',
       Description:           'Опис товару',
       CargoType:             'Cargo',
       Weight:                '0.001',
       VolumeGeneral:         '0.001',
+      Address: {
+        StreetRef:          "45502a83-416d-11dd-9198-001d60451983",
+        BuildingNumber:     "12",
+        Flat:               "10",
+        Note:               "З 9 до 17",
+      }
     }}
-
-
-#    data = {method: 'setEBill', options: {
-#      DateTime:              '29.08.2016',
-#      ServiceType:           'WarehouseDoors',
-#      RecipientFirstName:            'Петро',
-#      RecipientMiddleName:           'Іванович',
-#      RecipientLastName:             'Іванов',
-#      RecipientPhone:                '0661234567',
-#      RecipientAddress:              '-',
-#      RecipientCounterpartyType:     'PrivatePerson',
-#      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
-#      PaymentMethod:                 'Cash',
-#      PayerType:                     'Sender',                                #PayerType: 'Recipient'
-#      Cost:                  '200',
-#      SeatsAmount:           '2',
-#      Description:           'Опис товару',
-#      CargoType:             'Cargo',
-#      Weight:                '0.001',
-#      VolumeGeneral:         '0.001',
-#      Address: {
-#        StreetRef:          "45502a83-416d-11dd-9198-001d60451983",
-#        BuildingNumber:     "12",
-#        Flat:               "10"
-#      }
-#    }}
 
     $.ajax
       url: '/api/'
@@ -218,23 +219,20 @@ $(document).ready ->
 
 
   $('#print_m').click ->
-    data = {method: 'getMarkings', options: {
-      Ref:              '071e8f66-687b-11e6-a54a-005056801333'
-    }}
+#   GET
+    data = {url: '/api/ebill/print_markings/071e8f66-687b-11e6-a54a-005056801333'}
     $.ajax
       url: '/api/'
       dataType: 'json'
       data: data
       type: 'GET'
       success: (data) ->
-        alert data
         $('#print_m_block').append JSON.stringify(data)
 
 
   $('#print_doc').click ->
-    data = {method: 'getTtn', options: {
-      Ref:              '071e8f66-687b-11e6-a54a-005056801333'
-    }}
+#    GET
+    data = {url: '/api/ebill/print_ttn/071e8f66-687b-11e6-a54a-005056801333'}
     $.ajax
       url: '/api/'
       dataType: 'json'
@@ -243,6 +241,8 @@ $(document).ready ->
       type: 'GET'
       success: (data) ->
         $('#print_doc_block').append JSON.stringify(data)
+
+
 
 
 
