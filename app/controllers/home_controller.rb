@@ -7,8 +7,6 @@ class HomeController < ApplicationController
 
 
   def sender
-
-
     params.permit(:method, options: {})
     data = params.as_json
       begin
@@ -26,6 +24,21 @@ class HomeController < ApplicationController
       # send_file(@data, :type => "application/pdf", :disposition => "inline")
       # @data = API::API.delete_en(data)
       # @data = API::API.streets(data)
+    respond_to do |format|
+      format.json { render json: @data }
+    end
+  end
+
+
+  def sender_post
+    params.permit(:method, options: {})
+    data = params.as_json
+    begin
+      @data = JSON.parse(RestClient.post "#{URL}#{data['url']}", params,
+                                         {:content_type => :json, :accept => :json, :params => data})
+    rescue => error
+      @data = {:error=> error, :messages => error.response}
+    end
     respond_to do |format|
       format.json { render json: @data }
     end

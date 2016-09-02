@@ -5,8 +5,8 @@
 $(document).ready ->
   $('#areas').click ->
 #  GET
-#    data = {url: '/api/areas'}
-    data = {url: '/api/areas/71508137-9b87-11de-822f-000c2965ae0e'}
+    data = {url: '/api/areas'}
+#    data = {url: '/api/areas/71508137-9b87-11de-822f-000c2965ae0e'}
     $.ajax
       url: '/api'
       type: 'GET'
@@ -21,7 +21,7 @@ $(document).ready ->
 #   GET
 #    data = {url: '/api/cities'}
 #    data = {url: '/api/cities', options: {CityNameLike: "Харк"}}
-    data = {url: '/api/cities', options: {Area: "7150812a-9b87-11de-822f-000c2965ae0e"}}
+#    data = {url: '/api/cities', options: {Area: "7150812a-9b87-11de-822f-000c2965ae0e"}}
 #    data = {url: '/api/cities/db5c88e0-391c-11dd-90d9-001a92567626'}
 
     $.ajax
@@ -36,9 +36,10 @@ $(document).ready ->
 
 
   $('#warehouses').click ->
-#    data = {method: 'getWarehouses'}
-#    data = {method: 'getWarehouses', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626'}}
-    data = {method: 'getWarehouses', options: {Ref: '0d545f61-e1c2-11e3-8c4a-0050568002cf'}}
+#   GET
+#    data = {url: '/api/warehouses'}
+#    data = {url: '/api/warehouses', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626'}}
+    data = {url: '/api/warehouses/0d545f61-e1c2-11e3-8c4a-0050568002cf'}
     $.ajax
       url: '/api/'
       dataType: 'json'
@@ -50,11 +51,12 @@ $(document).ready ->
 
 
   $('#streets').click ->
-#    data = {method: 'getStreets', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626',  StreetNameLike: 'Жу'}}
-    data = {method: 'getStreets', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626'}}
-    #    data = {method: 'getStreets', options: {Ref: '45502a83-416d-11dd-9198-001d60451983'}}
+#   GET
+#    data = {url: '/api/streets', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626',  StreetNameLike: 'Жу'}}
+#    data = {url: '/api/streets', options: {City: 'db5c88e0-391c-11dd-90d9-001a92567626'}}
+    data = {url: '/api/streets/45502a83-416d-11dd-9198-001d60451983'}
     $.ajax
-      url: '/api/'
+      url: '/api'
       dataType: 'json'
       contentType: 'application/json'
       data: data
@@ -64,7 +66,8 @@ $(document).ready ->
 
 
   $('#rate').click ->
-#    data = {method: 'getRate', options: {
+#   GET
+#    data = {url: '/api/ebill/rate', options: {
 #      ServiceType: 'WarehouseWarehouse',
 #      CityRecipient: 'db5c88e0-391c-11dd-90d9-001a92567626',
 #      RecipientAddress: 'fb5f51cb-0d49-11e6-971e-005056887b8d',
@@ -75,7 +78,7 @@ $(document).ready ->
 #      VolumeGeneral: '0.4'
 #      }}
 
-#    data = {method: 'getRate', options: {
+#    data = {url: '/api/ebill/rate', options: {
 #      Poshtomat:             'Privat',
 #      ServiceType: 'WarehouseWarehouse',
 #      CityRecipient: '8d5a980d-391c-11dd-90d9-001a92567626',
@@ -89,27 +92,26 @@ $(document).ready ->
 #        volumetricWidth:    "30",
 #        volumetricLength:   "30",
 #        volumetricHeight:   "30",
-#        weight:             "28"
+#        weight:             "15"
 #      },
 #        {
 #          volumetricWidth:    "30",
 #          volumetricLength:   "30",
 #          volumetricHeight:   "30",
-#          weight:             "28"
+#          weight:             "12"
 #        }
 #      ]
-#
 #    }}
 
-    data = {method: 'getRate', options: {
+    data = {url: '/api/ebill/rate', options: {
       ServiceType:           'WarehouseDoors',
-      RecipientAddress:              '-',
-      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
+      RecipientAddress:      '-',
+      CityRecipient:         'db5c88e0-391c-11dd-90d9-001a92567626',
       Cost:                  '200',
       SeatsAmount:           '2',
       CargoType:             'Cargo',
-      Weight:                '0.001',
-      VolumeGeneral:         '0.001',
+      Weight:                '0.1',
+      VolumeGeneral:         '0.01',
       Address: {
         StreetRef:          "45502a83-416d-11dd-9198-001d60451983",
         BuildingNumber:     "12",
@@ -130,9 +132,10 @@ $(document).ready ->
 
 
   $('#create').click ->
-#    data = {method: 'setEBill', options: {
+#    POST
+#    data = {url: '/api/ebill', options: {
 #      Poshtomat:             'Privat',
-#      DateTime:              '29.08.2016',
+#      DateTime:              '02.09.2016',
 #      ServiceType:           'WarehouseWarehouse',
 #      RecipientFirstName:            'Іван',
 #      RecipientMiddleName:           'Іванович',
@@ -157,16 +160,37 @@ $(document).ready ->
 #      }]
 #    }}
 
+    data = {url: '/api/ebill', options: {
+      DateTime:              '02.09.2016',
+      ServiceType:           'WarehouseWarehouse',
+      RecipientFirstName:            'Іван',
+      RecipientMiddleName:           'Іванович',
+      RecipientLastName:             'Іванов',
+      RecipientPhone:                '0661234567',
+      RecipientCounterpartyType:     'PrivatePerson',
+      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
+      RecipientAddress:              '0d545f61-e1c2-11e3-8c4a-0050568002cf',
+      PaymentMethod:                 'Cash',
+      PayerType:                     'Sender',                                #PayerType: 'Recipient'
+      Cost:                  '400',
+      SeatsAmount:           '2',
+      Description:           'Опис товару',
+      CargoType:             'Cargo',
+      Weight:                '0.001',
+      VolumeGeneral:         '0.001',
+    }}
+
+
 #    data = {method: 'setEBill', options: {
-#      DateTime:              '28.08.2016',
-#      ServiceType:           'WarehouseWarehouse',
-#      RecipientFirstName:            'Іван',
+#      DateTime:              '29.08.2016',
+#      ServiceType:           'WarehouseDoors',
+#      RecipientFirstName:            'Петро',
 #      RecipientMiddleName:           'Іванович',
 #      RecipientLastName:             'Іванов',
 #      RecipientPhone:                '0661234567',
+#      RecipientAddress:              '-',
 #      RecipientCounterpartyType:     'PrivatePerson',
 #      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
-#      RecipientAddress:              '0d545f61-e1c2-11e3-8c4a-0050568002cf',
 #      PaymentMethod:                 'Cash',
 #      PayerType:                     'Sender',                                #PayerType: 'Recipient'
 #      Cost:                  '200',
@@ -175,39 +199,18 @@ $(document).ready ->
 #      CargoType:             'Cargo',
 #      Weight:                '0.001',
 #      VolumeGeneral:         '0.001',
+#      Address: {
+#        StreetRef:          "45502a83-416d-11dd-9198-001d60451983",
+#        BuildingNumber:     "12",
+#        Flat:               "10"
+#      }
 #    }}
-
-
-    data = {method: 'setEBill', options: {
-      DateTime:              '29.08.2016',
-      ServiceType:           'WarehouseDoors',
-      RecipientFirstName:            'Петро',
-      RecipientMiddleName:           'Іванович',
-      RecipientLastName:             'Іванов',
-      RecipientPhone:                '0661234567',
-      RecipientAddress:              '-',
-      RecipientCounterpartyType:     'PrivatePerson',
-      CityRecipient:                 'db5c88e0-391c-11dd-90d9-001a92567626',
-      PaymentMethod:                 'Cash',
-      PayerType:                     'Sender',                                #PayerType: 'Recipient'
-      Cost:                  '200',
-      SeatsAmount:           '2',
-      Description:           'Опис товару',
-      CargoType:             'Cargo',
-      Weight:                '0.001',
-      VolumeGeneral:         '0.001',
-      Address: {
-        StreetRef:          "45502a83-416d-11dd-9198-001d60451983",
-        BuildingNumber:     "12",
-        Flat:               "10"
-      }
-    }}
 
     $.ajax
       url: '/api/'
       dataType: 'json'
       data: data
-      type: 'GET'
+      type: 'POST'
       success: (data) ->
         $('#create_block').append JSON.stringify(data)
 
