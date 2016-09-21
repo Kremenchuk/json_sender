@@ -40,7 +40,7 @@ class HomeController < ApplicationController
 
   def save_file(body, file_name)
     FileUtils.mkdir_p Rails.root.join('files')
-    File.open(Rails.root.join('files', "#{file_name}"), 'ab') do |io|
+    File.open(Rails.root.join('files', "#{file_name}.pdf"), 'ab') do |io|
       io.write(body)
     end
   end
